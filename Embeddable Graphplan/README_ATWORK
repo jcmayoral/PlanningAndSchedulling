@@ -1,0 +1,2 @@
+To Run 
+java -jar javagp.jar -d atwork/atwork/atwork.pddl -p atwork/atwork/atwork#.pddl
