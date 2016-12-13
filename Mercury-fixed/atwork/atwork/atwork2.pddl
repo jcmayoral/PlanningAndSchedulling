@@ -1,6 +1,6 @@
 (define (problem atwork2)
         (:domain atwork)	
-        (:objects o1 o21 o22 o3 o4 s1 s2 s3 s4 s5) 
+        (:objects o1 o21 o22 o3 o4 s1 s2 s3 s4 s5 arm) 
         (:init (On o1 s3)
 	       (On o21 s3)
 	       (On o22 s3)		

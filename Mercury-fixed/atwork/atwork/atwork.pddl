@@ -6,15 +6,31 @@
   :parameters (?initPlace ?finalPlace)
   :precondition (and (At ?initPlace) (not(At ?finalPlace)))
   :effect (and (At ?finalPlace) 
-               (not (At ?initPlace))))
+               (not (At ?initPlace))
+  )
+)
+
 (:action Pick
   :parameters  (?ob ?place)
   :precondition (and (At ?place) (On ?ob ?place))
   :effect (and(Have ?ob)
-	      (not (On ?ob ?place))))
+	      (not (On ?ob ?place))
+  )
+)
 
 (:action Drop
-  :parameters  (?ob ?place)
+  :parameters  (?ob ?place ?a)
   :precondition (and (Have ?ob) (At ?place))
-  :effect (and(not(Have ?ob))
-	      (On ?ob ?place))))
+  :effect (and(not (Have ?ob))
+	      (On ?ob ?place))
+  )
+)
+
+
+
+
+
+
+
+
+
