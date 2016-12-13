@@ -4,7 +4,7 @@ USE_LP=0
 ## Set LINK_RELEASE_STATICALLY to 0 or 1 (default) to disable/enable
 ## static linking of the executable in release mode.
 ## On OS X, this is unsupported and will be silently disabled.
-LINK_RELEASE_STATICALLY=1
+LINK_RELEASE_STATICALLY=0
 
 ## Set STATE_VAR_BYTES to 1, 2 or 4 to control how large a state
 ## variable is. There should be no need to tweak this manually.

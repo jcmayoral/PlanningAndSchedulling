@@ -748,8 +748,9 @@ void RedBlackDAGFactFollowingHeuristic::precalculate_variables() {
 
 
 void RedBlackDAGFactFollowingHeuristic::precalculate_shortest_paths_for_var(int var) {
-    if (shortest_paths_calculated)
+    if (shortest_paths_calculated){
     	return;
+    }
 
     if (!black_vars[var] && use_connected) {
     	cout << "Storing shortest paths and costs for connected red variable " << var << endl;
@@ -761,8 +762,9 @@ void RedBlackDAGFactFollowingHeuristic::precalculate_shortest_paths_for_var(int 
     	}
     }
 
-    if (!black_vars[var])
+    if (!black_vars[var]){
     	return;
+    }
 
 	if (get_cg_predecessors(var).size() == 0) {
 //    	cout << "Storing shortest paths and costs for root variable " << var << endl;

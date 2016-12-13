@@ -1,7 +1,7 @@
 ## Set LINK_RELEASE_STATICALLY to 0 or 1 (default) to disable/enable
 ## static linking of the executable in release mode.
 ## On OS X, this is unsupported and will be silently disabled.
-LINK_RELEASE_STATICALLY=1
+LINK_RELEASE_STATICALLY=0
 
 ## On a supported operating system, there should be no need to override
 ## the OS setting. If the provided code does not work even though your
