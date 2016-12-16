@@ -10,7 +10,7 @@
 	       (On o2 s3)
 	       (On o6 s3)
 	       (On o8 s3)
-	       (At s1)
+	       (At start)
 	       (not(At s2))
 	       (not(At s3))
 	       (not(At s4))
