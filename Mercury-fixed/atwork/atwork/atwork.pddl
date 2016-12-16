@@ -1,8 +1,6 @@
 (define (domain atwork)
 (:requirements :negative-preconditions :typing)
-(:types o1 o2 o3 o4 o5 - object
-	s1 s2 s3 s4 s5 START END - place
-        youbot - robot)
+(:types object place robot)
 (:predicates (At ?p - place)
              (Have ?o - object) 
              (On ?o - object ?s - place) 
