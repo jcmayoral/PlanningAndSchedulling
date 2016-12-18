@@ -47,6 +47,7 @@
 			(At ?i) 
                         (not(At ?d))
                         (Safe ?r)
+			(Empty ?r)
 		)
   :effect (and (At ?d) 
                (not (At ?i))
@@ -73,10 +74,9 @@
 
 
 (:action Drop
-  :parameters  (?ob - object ?l - place ?c1 - location ?r - robot  ?c2 - robotloc)
+  :parameters  (?ob - object ?l - place ?c1 - location ?r - robot)
   :precondition (and (At ?l) (Free ?l ?c1) (not(Empty ?r)) (onGripper ?r ?ob) (PickFrom ?r ?ob))
-  :effect (and(not (Have ?ob ?c2))
-	      (On ?ob ?l ?c1)
+  :effect (and(On ?ob ?l ?c1)
 	      (not(Free ?l ?c1))
 	      (not(Safe ?r))
 	      (Empty ?r)
