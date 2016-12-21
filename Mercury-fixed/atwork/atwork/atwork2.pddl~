@@ -19,6 +19,7 @@
 	       (not(Free s3 rightcenter))
 	       (not(Free s3 right))
 	       (Empty youbot)
+	       (not(Check youbot))
 	       (not(Full youbot))
 	       (PlatformFree youbot p1)
 	       (PlatformFree youbot p2)

@@ -78,7 +78,7 @@
 	       (not(PlatformFree ?r ?c))
 	       (Empty ?r)
 	       (Have ?o ?c)
-		(when(
+		when(
 			and(not(PlatformFree ?r p1))
                            (not(PlatformFree ?r p2))
 	                   (not(PlatformFree ?r p3))

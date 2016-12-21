@@ -43,6 +43,7 @@
 	       (Free s6 rightcenter)
 	       (Free s6 right)
 	       (Empty youbot)
+	       (not(Check youbot))
 	       (not(Full youbot))
 	       (PlatformFree youbot p1)
 	       (PlatformFree youbot p2)
