@@ -1,2 +1,2 @@
 #! /bin/bash
-"$(dirname "$0")"/src/plan-ipc seq-sat-mercury ../atworkWithCosts/atwork.pddl ../atworkWithCosts/atwork2.pddl plan
+"$(dirname "$0")"/src/plan-ipc seq-sat-mercury ../atworkWithRewards/atwork.pddl ../atworkWithRewards/atwork2.pddl plan
