@@ -23,39 +23,18 @@
 	     (PickFrom ?r - robot ?o - object)
 )
 
-(:action CheckSpace
-  :parameters (?r - robot)
-  :precondition (and(not( Check ?r))(Empty ?r)) 
-  :effect (and(
-		when(
-			and(not(PlatformFree ?r p1))
-                           (not(PlatformFree ?r p2))
-	                   (not(PlatformFree ?r p3))
-		)
-		(Full ?r)
-                )
-		(Check ?r) 
-	   )
-)
-
-(:action GoSafe
-  :parameters (?r - robot)
-  :precondition (
-		and(Empty ?r) (Check ?r) (not(Safe ?r))
-		)
-  :effect (Safe ?r)
-)
-
-(:action Move
+(:action GoSafeAndMove
   :parameters (?i - place ?d - place ?r - robot)
   :precondition (and 
 			(At ?i) 
                         (not(At ?d))
-                        (Safe ?r)
+			(Check ?r)
 			(Empty ?r)
 		)
   :effect (and (At ?d) 
-               (not (At ?i)) (increase (total-cost) (distance ?i ?d))
+               (not (At ?i)) 
+	       (Safe ?r)
+	       (increase (total-cost) (distance ?i ?d))
   )
 )
 
@@ -74,13 +53,20 @@
 	      (Dropon ?r ?ob)
 	      (not(Empty ?r))
 	      (not (Check ?r))
+              (increase (total-cost) 1)
   )
 )
 
 
 (:action DropToWorkStation
   :parameters  (?l - place ?c1 - location ?ob - object  ?r - robot)
-  :precondition (and (At ?l) (Free ?l ?c1) (not(Empty ?r)) (onGripper ?r ?ob) (PickFrom ?r ?ob))
+  :precondition (and 
+		(At ?l) 
+		(Free ?l ?c1) 
+		(not(Empty ?r)) 
+		(onGripper ?r ?ob) 
+		(PickFrom ?r ?ob)
+		)
   :effect (and(On ?ob ?l ?c1)
 	      (not(Free ?l ?c1))
 	      (not(Safe ?r))
@@ -91,17 +77,25 @@
   )
 )
 
-
-(:action DropToYoubot
+(:action DropToYoubotAndCheckSpace
   :parameters (?r - robot ?o - object ?c - robotloc)
   :precondition (and(Dropon ?r ?o) (not(Empty ?r)) 
-		    (PlatformFree ?r ?c)
+		    (PlatformFree ?r ?c) (not( Check ?r))
 		)
   :effect (and (not(Dropon ?r ?o))
 	       (not(PlatformFree ?r ?c))
 	       (Empty ?r)
 	       (Have ?o ?c)
 	       (not( Check ?r))
+	       (increase (total-cost) 1)
+	      (Check ?r)
+	      (when(
+			and(not(PlatformFree ?r p1))
+                           (not(PlatformFree ?r p2))
+	                   (not(PlatformFree ?r p3))
+		)
+		(Full ?r)
+                )
   )
 )
 
@@ -117,7 +111,7 @@
                (not (Full ?r))
 	       (not(Have ?r ?c))
 	       (OnGripper ?r ?o)
-
+	       (increase (total-cost) 1)
   )
 )
 

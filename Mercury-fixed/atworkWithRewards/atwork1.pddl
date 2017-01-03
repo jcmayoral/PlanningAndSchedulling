@@ -42,9 +42,9 @@
                (= (distance s3 s1) 2)
                (= (distance s3 s2) 1)
 	       (= (total-cost) 0)
-               (= (reward o1) 0)
-               (= (reward o2) 5)
-               (= (reward o3) 9))
+               (= (reward o1) 1)
+               (= (reward o2) 6)
+               (= (reward o3) 10))
    (:goal 
      (and (On o1 s3 left)
 	  (On o2 s3 center)
