@@ -1,5 +1,5 @@
 (define (domain atwork)
-(:requirements :negative-preconditions :typing :conditional-effects :action-costs :rewards)
+(:requirements :negative-preconditions :typing :conditional-effects :action-costs)
 (:types object place robot location robotloc)
 (:constants left center right leftcenter rightcenter - location
             p1 p2 p3 - robotloc)
