@@ -2,7 +2,7 @@
         (:domain atwork)
         (:objects o1 o2 o3 - object
 		 s1 s2 s3 - place
-		 youbot - robot
+		 b-it-bots - robot
 		)
         (:init (On o1 s1 center)
 	       (On o2 s2 center)
@@ -22,13 +22,13 @@
 	       (not(Free s3 center))
 	       (Free s3 rightcenter)
 	       (Free s3 right)
-	       (Empty youbot)
-	       (not(Full youbot))
-               (Check youbot)
-	       (PlatformFree youbot p1)
-	       (PlatformFree youbot p2)
-	       (PlatformFree youbot p3)
-	       (not(Safe youbot))
+	       (Empty b-it-bots)
+	       (not(Full b-it-bots))
+               (Check b-it-bots)
+	       (PlatformFree b-it-bots p1)
+	       (PlatformFree b-it-bots p2)
+	       (PlatformFree b-it-bots p3)
+	       (not(Safe b-it-bots))
 	       (At s1)
 	       (not(At s2))
 	       (not(At s3))

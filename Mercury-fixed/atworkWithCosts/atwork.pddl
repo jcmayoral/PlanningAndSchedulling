@@ -1,5 +1,5 @@
 (define (domain atwork)
-(:requirements :negative-preconditions :typing :conditional-effects :action-costs)
+(:requirements :negative-preconditions :typing :conditional-effects :action-costs :rewards)
 (:types object place robot location robotloc)
 (:constants left center right leftcenter rightcenter - location
             p1 p2 p3 - robotloc)
@@ -22,10 +22,6 @@
 	     (PickFrom ?r - robot ?o - object)
 )
 
-
-
-
-
 (:action CheckSpace
   :parameters (?r - robot)
   :precondition (and(not( Check ?r))(Empty ?r)) 
@@ -35,12 +31,11 @@
                            (not(PlatformFree ?r p2))
 	                   (not(PlatformFree ?r p3))
 		)
-		(and(Full ?r)(Check ?r))
+		(Full ?r)
                 )
-		(Check ?r)
+		(Check ?r) 
 	   )
 )
-
 
 (:action GoSafe
   :parameters (?r - robot)
@@ -63,8 +58,8 @@
   )
 )
 
-(:action Pick
-  :parameters  (?r - robot ?ob - object ?l - place ?c - location)
+(:action PickFromWorkStation
+  :parameters  (?l - place ?c - location ?ob - object ?r - robot)
   :precondition (and (At ?l) 
 		     (On ?ob ?l ?c) 
 		     (not(Free ?l ?c))
@@ -78,25 +73,26 @@
 	      (Dropon ?r ?ob)
 	      (not(Empty ?r))
 	      (not (Check ?r))
+              (increase (total-cost) 5)
   )
 )
 
 
-(:action Drop
-  :parameters  (?ob - object ?l - place ?c1 - location ?r - robot)
+(:action DropToWorkStation
+  :parameters  (?l - place ?c1 - location ?ob - object  ?r - robot)
   :precondition (and (At ?l) (Free ?l ?c1) (not(Empty ?r)) (onGripper ?r ?ob) (PickFrom ?r ?ob))
   :effect (and(On ?ob ?l ?c1)
 	      (not(Free ?l ?c1))
 	      (not(Safe ?r))
 	      (Empty ?r)
-	      (not (Full ?r))
 	      (not (onGripper ?r ?ob))
 	      (not (PickFrom ?r ?ob))
+              (increase (total-cost) 1)
   )
 )
 
 
-(:action DropPlatform
+(:action DropToYoubot
   :parameters (?r - robot ?o - object ?c - robotloc)
   :precondition (and(Dropon ?r ?o) (not(Empty ?r)) 
 		    (PlatformFree ?r ?c)
@@ -106,11 +102,12 @@
 	       (Empty ?r)
 	       (Have ?o ?c)
 	       (not( Check ?r))
+               (increase (total-cost) 5)
   )
 )
 
 
-(:action PickPlatform
+(:action PickFromYoubot
   :parameters (?r - robot ?o - object ?c - robotloc)
   :precondition (and(Empty ?r)
 		    (Have ?o ?c) (not(PlatformFree ?r ?c))
@@ -118,8 +115,10 @@
   :effect (and (PickFrom ?r ?o)
 	       (PlatformFree ?r ?c)
 	       (not(Empty ?r))
+               (not (Full ?r))
 	       (not(Have ?r ?c))
 	       (OnGripper ?r ?o)
+               (increase (total-cost) 1)
   )
 )
 
