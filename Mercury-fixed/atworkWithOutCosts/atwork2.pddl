@@ -1,8 +1,9 @@
 (define (problem atwork2)
         (:domain atwork)	
 	(:objects o1 o2 o3 o4 - object
-		s1 s2 s3 START END - place
-		youbot - robot)
+		s1 s3 - place
+		youbot - robot
+        	)
         (:init (On o1 s3 left)
 	       (On o2 s3 leftcenter)
 	       (On o2 s3 center)		
@@ -19,25 +20,28 @@
 	       (not(Free s3 rightcenter))
 	       (not(Free s3 right))
 	       (Empty youbot)
+	       (not(Check youbot))
 	       (not(Full youbot))
 	       (PlatformFree youbot p1)
 	       (PlatformFree youbot p2)
 	       (PlatformFree youbot p3)
 	       (not(Safe youbot))
-	       (At START)
+	       (At s3)
 	       (not(At s1))
-	       (not(At s2))
-	       (not(At s3))
-	       (not(At END)))
+	       (= (distance s1 s1)  0)
+	       (= (distance s3 s3)  0)
+               (= (distance s1 s3) 10)
+	       (= (distance s3 s1) 10)
+	       (= (total-cost) 0))
    (:goal 
      (and (On o1 s1 left)
 	  (On o2 s1 leftcenter)
 	  (On o2 s1 center)
 	  (On o3 s1 rightcenter)
 	  (On o4 s1 right)
-	  (At END)
      )
    )
+   (:metric minimize (total-cost))
 )
 
 

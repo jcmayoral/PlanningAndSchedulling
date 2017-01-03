@@ -1,8 +1,13 @@
 (define (domain atwork)
-(:requirements :negative-preconditions :typing :conditional-effects)
+(:requirements :negative-preconditions :typing :conditional-effects :action-costs)
 (:types object place robot location robotloc)
 (:constants left center right leftcenter rightcenter - location
             p1 p2 p3 - robotloc)
+(:functions
+    (distance ?i  - place ?d  - place)
+    (total-cost)
+)
+
 (:predicates (At ?p - place)
              (Have ?o - object ?c - robotloc) 
              (On ?o - object ?s - place ?c - location) 
@@ -17,10 +22,30 @@
 	     (PickFrom ?r - robot ?o - object)
 )
 
+
+
+
+
+(:action CheckSpace
+  :parameters (?r - robot)
+  :precondition (and(not( Check ?r))(Empty ?r)) 
+  :effect (and(
+		when(
+			and(not(PlatformFree ?r p1))
+                           (not(PlatformFree ?r p2))
+	                   (not(PlatformFree ?r p3))
+		)
+		(and(Full ?r)(Check ?r))
+                )
+		(Check ?r)
+	   )
+)
+
+
 (:action GoSafe
   :parameters (?r - robot)
   :precondition (
-		and(Empty ?r) (not(Safe ?r))
+		and(Empty ?r) (Check ?r) (not(Safe ?r))
 		)
   :effect (Safe ?r)
 )
@@ -34,7 +59,7 @@
 			(Empty ?r)
 		)
   :effect (and (At ?d) 
-               (not (At ?i))
+               (not (At ?i)) (increase (total-cost) (distance ?i ?d))
   )
 )
 
@@ -44,6 +69,7 @@
 		     (On ?ob ?l ?c) 
 		     (not(Free ?l ?c))
 		     (not (Full ?r))
+		     (Check ?r)
 		     (Empty ?r)
 		)
   :effect (and(not (On ?ob ?l ?c))
@@ -51,6 +77,7 @@
 	      (Free ?l ?c)
 	      (Dropon ?r ?ob)
 	      (not(Empty ?r))
+	      (not (Check ?r))
   )
 )
 
@@ -78,15 +105,10 @@
 	       (not(PlatformFree ?r ?c))
 	       (Empty ?r)
 	       (Have ?o ?c)
-		(when(
-			and(not(PlatformFree ?r p1))
-                           (not(PlatformFree ?r p2))
-	                   (not(PlatformFree ?r p3))
-		)
-		(Full ?r)
-                )
+	       (not( Check ?r))
   )
 )
+
 
 (:action PickPlatform
   :parameters (?r - robot ?o - object ?c - robotloc)
